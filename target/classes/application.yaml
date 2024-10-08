@@ -1,2 +1,68 @@
 server:
   port: 8080
+
+---
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info
+  health:
+    diskSpace:
+      enabled: true
+      
+---
+
+spring:
+  profiles:
+    active: dev  # Altera para o perfil (dev, test, prod)
+    
+
+---
+
+# Ambiente de desenvolvimento (test)
+spring:
+  config:
+    activate:
+      on-profile: test
+  webclient:
+    ssl:
+      trust-all: true    
+
+api:
+  dummyjson:
+    base-url: https://dummyjson.com
+    
+---
+
+# Ambiente de desenvolvimento (dev)
+spring:
+  config:
+    activate:
+      on-profile: dev
+  webclient:
+    ssl:
+      trust-all: false    
+
+api:
+  dummyjson:
+    base-url: https://dummyjson.com
+
+---
+
+# Ambiente de produção (prod)
+spring:
+  config:
+    activate:
+      on-profile: prod
+  webclient:
+    ssl:
+      trust-all: false    
+
+api:
+  dummyjson:
+    base-url: https://dummyjson.com 
+
+
+  

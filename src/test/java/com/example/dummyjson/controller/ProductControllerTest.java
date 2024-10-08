@@ -1,19 +1,19 @@
 package com.example.dummyjson.controller;
 
-import com.example.dummyjson.dto.Product;
-import com.example.dummyjson.service.ProductService;
-
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
-
-import java.util.Arrays;
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
+
+import java.util.List;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import com.example.dummyjson.dto.Product;
+import com.example.dummyjson.dto.ProductMock;
+import com.example.dummyjson.service.ProductService;
 
 @ExtendWith(MockitoExtension.class)
 public class ProductControllerTest {
@@ -27,16 +27,7 @@ public class ProductControllerTest {
 	@Test
 	public void testGetAllProducts() {
 		// Arrange
-		Product product1 = new Product();
-		product1.setId(1L);
-		product1.setTitle("Product 1");
-
-		Product product2 = new Product();
-		product2.setId(2L);
-		product2.setTitle("Product 2");
-
-		List<Product> products = Arrays.asList(product1, product2);
-		when(productService.getAllProducts()).thenReturn(products);
+		when(productService.getAllProducts()).thenReturn(ProductMock.getAll());
 
 		// Act
 		List<Product> result = productController.getAllProducts();
@@ -49,11 +40,7 @@ public class ProductControllerTest {
 	@Test
 	public void testGetProductById() {
 		// Arrange
-		Product product = new Product();
-		product.setId(1L);
-		product.setTitle("Product 1");
-
-		when(productService.getProductById(1L)).thenReturn(product);
+		when(productService.getProductById(1L)).thenReturn(ProductMock.getOne());
 
 		// Act
 		Product result = productController.getProductById(1L);

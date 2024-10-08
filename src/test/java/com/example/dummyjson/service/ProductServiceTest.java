@@ -3,7 +3,6 @@ package com.example.dummyjson.service;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -17,6 +16,7 @@ import org.springframework.web.reactive.function.client.WebClient.RequestHeaders
 import org.springframework.web.reactive.function.client.WebClient.ResponseSpec;
 
 import com.example.dummyjson.dto.Product;
+import com.example.dummyjson.dto.ProductMock;
 import com.example.dummyjson.dto.Response;
 
 import reactor.core.publisher.Mono;
@@ -46,15 +46,7 @@ public class ProductServiceTest {
 	@Test
 	public void testGetAllProducts() {
 		//Arrange
-		Product product1 = new Product();
-		product1.setId(1L);
-		product1.setTitle("Product 1");
-
-		Product product2 = new Product();
-		product2.setId(2L);
-		product2.setTitle("Product 2");
-
-		Response response = new Response(Arrays.asList(product1, product2));
+		Response response = new Response(ProductMock.getAll());
 
 		when(webClientMock.get()).thenReturn(requestHeadersUriSpecMock);
         when(requestHeadersUriSpecMock.uri("/products")).thenReturn(requestHeadersUriSpecMock);
@@ -73,14 +65,11 @@ public class ProductServiceTest {
 	@Test
 	public void testGetProductById() {
 		//Arrange
-		Product product = new Product();
-		product.setId(1L);
-		product.setTitle("Product 1");
 
 		when(webClientMock.get()).thenReturn(requestHeadersUriSpecMock);
         when(requestHeadersUriSpecMock.uri("/products/{id}", 1L)).thenReturn(requestHeadersUriSpecMock);
         when(requestHeadersUriSpecMock.retrieve()).thenReturn(responseSpecMock);
-        when(responseSpecMock.bodyToMono(Product.class)).thenReturn(Mono.just(product));
+        when(responseSpecMock.bodyToMono(Product.class)).thenReturn(Mono.just(ProductMock.getOne()));
 
         //Act
 		Product result = productService.getProductById(1L);

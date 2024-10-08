@@ -1,5 +1,6 @@
 package com.example.dummyjson.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -7,12 +8,13 @@ import org.springframework.web.reactive.function.client.WebClient;
 @Configuration
 public class WebClientConfig {
 
-	private final String BASE_URL = "https://dummyjson.com";
+	@Value("${api.dummyjson.base-url}")
+	private String baseUrl;
 	
 	@Bean
     public WebClient webClient(WebClient.Builder webClientBuilder) {
         return webClientBuilder
-                .baseUrl(BASE_URL)
+                .baseUrl(baseUrl)
                 .defaultHeader("Content-Type", "application/json")
                 .build();
     }
