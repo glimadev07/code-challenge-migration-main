@@ -11,17 +11,20 @@ public class ProductTest {
 
     @Test
     public void testGetAndSetter() {
+    	//Arrange
         Long expectedId = 1L;
         String expectedTitle = "A dummy title";
         String expectedDescription = "A dummy description";
         Double expectedPrice = 2.1;
 
+        //Act
         Product product1 = new Product();
         product1.setId(expectedId);
         product1.setTitle(expectedTitle);
         product1.setDescription(expectedDescription);
         product1.setPrice(expectedPrice);
 
+        //Assert
         assertEquals(expectedId, product1.getId());
         assertEquals(expectedTitle, product1.getTitle());
         assertEquals(expectedDescription, product1.getDescription());

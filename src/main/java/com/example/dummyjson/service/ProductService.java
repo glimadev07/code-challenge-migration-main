@@ -15,6 +15,13 @@ public class ProductService {
 	@Autowired
 	private WebClient webClient;
 
+	public ProductService() {
+	}
+	
+	public ProductService(WebClient webClient) {
+		this.webClient = webClient;
+	}
+
 	public List<Product> getAllProducts() {
 
 		var response = webClient.get()
@@ -25,10 +32,9 @@ public class ProductService {
 	}
 
 	public Product getProductById(Long id) {
-		var response = webClient.get()
+		return webClient.get()
 				.uri("/products/{id}", id)
 				.retrieve()
 				.bodyToMono(Product.class).block();
-		return response;
 	}
 }
